@@ -10,6 +10,7 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
