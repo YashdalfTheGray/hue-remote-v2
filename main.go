@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/yashdalfthegray/hue-remote-v2/utils"
+
 	"github.com/yashdalfthegray/hue-remote-v2/handlerfuncs"
 
 	"github.com/gorilla/handlers"
@@ -14,6 +16,12 @@ import (
 )
 
 func main() {
+	if err := utils.CheckEnv(); err != nil {
+		fmt.Println(err.Error())
+		fmt.Println("Exiting with error code 1...")
+		os.Exit(1)
+	}
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", handlerfuncs.Status).Methods("GET")
