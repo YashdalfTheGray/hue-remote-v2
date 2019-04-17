@@ -9,6 +9,8 @@ RUN go mod download
 
 COPY . .
 
+RUN go test -covermode=atomic -coverpkg=all ./...
+
 RUN CGO_ENABLED=0 GOOS=linux go build
 
 FROM scratch
