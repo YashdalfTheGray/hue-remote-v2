@@ -1,6 +1,8 @@
 # go built things
 bin
 .bin-stamp
+artifacts
+.artifacts-stamp
 
 # env files
 *.env
