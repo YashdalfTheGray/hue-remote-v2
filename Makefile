@@ -1,10 +1,10 @@
 .PHONY: all run clean
-all: bin/hue-remote-v2
+all: build
 
 # go list is the canonical utility to find go files
 GOFILES := $(shell go list -f '{{ join .GoFiles "\n" }}' ./...)
 
-bin/hue-remote-v2: .bin-stamp ${GOFILES}
+build: .bin-stamp
 	go build -o bin/hue-remote-v2
 	chmod +x bin/hue-remote-v2
 
