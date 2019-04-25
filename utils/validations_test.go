@@ -7,23 +7,57 @@ import (
 )
 
 func TestValidateColorString(t *testing.T) {
-	testTable := []struct {
-		in  string
-		out bool
+	testCases := []struct {
+		desc string
+		in   string
+		out  bool
 	}{
-		{"#ffffff", true},
-		{"#123456", true},
-		{"#b16a12", true},
-		{"3ca12b", false},
-		{"", false},
-		{"#fffffff", false},
-		{"gibberish", false},
-		{"(*&#(#(#*&", false},
+		{
+			desc: "with valid color string",
+			in:   "#ffffff",
+			out:  true,
+		},
+		{
+			desc: "with another valid color string",
+			in:   "#123456",
+			out:  true,
+		},
+		{
+			desc: "with yet another valid color string",
+			in:   "#b16a12",
+			out:  true,
+		},
+		{
+			desc: "with a color string without '#'",
+			in:   "3ca12b",
+			out:  false,
+		},
+		{
+			desc: "with empty string",
+			in:   "",
+			out:  false,
+		},
+		{
+			desc: "with more than 3 hex numbers",
+			in:   "#fffffff",
+			out:  false,
+		},
+		{
+			desc: "with gibberish",
+			in:   "gibberish",
+			out:  false,
+		},
+		{
+			desc: "with symbols",
+			in:   "(*&#(#(#*&",
+			out:  false,
+		},
 	}
-
-	for _, testData := range testTable {
-		if result := utils.ValidateColorString(testData.in); result != testData.out {
-			t.Errorf("ValidateColorString with input %s - expected %t but got %t", testData.in, testData.out, result)
-		}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if result := utils.ValidateColorString(tC.in); result != tC.out {
+				t.Errorf("expected %t but got %t", tC.out, result)
+			}
+		})
 	}
 }
