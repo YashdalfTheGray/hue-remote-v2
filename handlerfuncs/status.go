@@ -12,9 +12,7 @@ func Status(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 
-	if err := json.NewEncoder(w).Encode(models.Status{
-		Status: "ok",
-	}); err != nil {
+	if err := json.NewEncoder(w).Encode(models.NewStatusResponse()); err != nil {
 		panic(err)
 	}
 }
