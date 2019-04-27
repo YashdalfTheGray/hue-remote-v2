@@ -8,9 +8,9 @@ import (
 
 	"github.com/yashdalfthegray/hue-remote-v2/utils"
 
-	"github.com/yashdalfthegray/hue-remote-v2/handlerfuncs"
+	"github.com/yashdalfthegray/hue-remote-v2/handlers"
 
-	"github.com/gorilla/handlers"
+	gHandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/joho/godotenv/autoload"
 )
@@ -24,9 +24,9 @@ func main() {
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", handlerfuncs.Status).Methods("GET")
+	r.HandleFunc("/", handlers.Status).Methods("GET")
 
-	loggedRouter := handlers.LoggingHandler(os.Stdout, r)
+	loggedRouter := gHandlers.LoggingHandler(os.Stdout, r)
 
 	http.Handle("/", loggedRouter)
 	fmt.Println("Starting server at 8080")
