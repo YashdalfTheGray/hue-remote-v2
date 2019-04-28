@@ -11,6 +11,9 @@ type MissingEnvError struct {
 }
 
 func (e MissingEnvError) Error() string {
+	if &e == nil {
+		return ""
+	}
 	return fmt.Sprintf("Environment variable %s was not provided", e.name)
 }
 
