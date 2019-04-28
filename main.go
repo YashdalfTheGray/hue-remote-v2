@@ -16,7 +16,7 @@ import (
 )
 
 func main() {
-	if err := utils.CheckEnv(); err != nil {
+	if err := utils.CheckEnv(nil); err != nil {
 		fmt.Println(err.Error())
 		fmt.Println("Exiting with error code 1...")
 		os.Exit(1)
