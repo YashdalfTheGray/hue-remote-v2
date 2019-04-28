@@ -6,9 +6,14 @@ import (
 	"github.com/yashdalfthegray/hue-remote-v2/models"
 )
 
-// CheckEnv checks that the right keys are present
-// in the environment
-func CheckEnv() (err error) {
+// CheckEnv checks that the right keys are present in the
+// environment. Optionally takes a lookup function and falls
+// back to os.LookupEnv if one is not provided
+func CheckEnv(lookupFunc func(key string) (string, bool)) (err error) {
+	if lookupFunc == nil {
+		lookupFunc = os.LookupEnv
+	}
+
 	envVars := [4]string{
 		"HUE_BRIDGE_ADDRESS",
 		"HUE_BRIDGE_USERNAME",
@@ -16,9 +21,9 @@ func CheckEnv() (err error) {
 		"REDIS_URL",
 	}
 
-	for i := 0; i < len(envVars); i++ {
-		if _, ok := os.LookupEnv(envVars[i]); !ok {
-			return models.NewMissingEnvError(envVars[i])
+	for _, v := range envVars {
+		if _, ok := lookupFunc(v); !ok {
+			return models.NewMissingEnvError(v)
 		}
 	}
 
