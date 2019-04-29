@@ -1,9 +1,20 @@
-package color
+package colors
 
 import "fmt"
 
-// HexCode represents an HTML color string
+// HexCode represents an HTML color string. Implements
+// fmt.Stringer
 type HexCode string
+
+// NewHexCode returns a new HexCode built out of a string
+func NewHexCode(code string) HexCode {
+	return HexCode(code)
+}
+
+// String returns the string representation of the HexCode
+func (cs HexCode) String() string {
+	return string(cs)
+}
 
 // ToRGB converts a HexCode string color into its RGB equivalent
 func (cs HexCode) ToRGB() (RGB, error) {
