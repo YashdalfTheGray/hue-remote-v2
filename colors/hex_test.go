@@ -26,12 +26,6 @@ func TestHexToRGB(t *testing.T) {
 			err:  true,
 		},
 		{
-			desc: "errors on malformed color string",
-			in:   colors.NewHexCode("#234092834"),
-			out:  colors.NewRGB(0, 0, 0),
-			err:  true,
-		},
-		{
 			desc: "errors on invalid characters",
 			in:   colors.NewHexCode("#jklmno"),
 			out:  colors.NewRGB(0, 0, 0),
