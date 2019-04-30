@@ -1,0 +1,81 @@
+package colors
+
+import (
+	"fmt"
+	"math"
+)
+
+// RGB represents a traditional 24-bit color, having 8 bits
+// for each of red, green, and blue. Implements fmt.Stringer
+type RGB struct {
+	R, G, B uint8
+}
+
+// NewRGB returns a new RGB object constructured out of the
+// values given to the constructor function
+func NewRGB(h, s, l uint8) RGB {
+	return RGB{h, s, l}
+}
+
+// String returns a string representation of the RGB object
+func (c RGB) String() string {
+	return fmt.Sprintf("rgb(%d, %d, %d)", c.R, c.G, c.B)
+}
+
+// ToHSL converts an RGB color to the HSL representation
+func (c RGB) ToHSL() HSL {
+	var h, s, l float64
+
+	fracR := toFractional(c.R)
+	fracG := toFractional(c.G)
+	fracB := toFractional(c.B)
+
+	max := math.Max(math.Max(fracR, fracG), fracB)
+	min := math.Min(math.Min(fracR, fracG), fracB)
+
+	// Luminosity is the average of the max and min rgb color intensities.
+	l = (max + min) / 2
+
+	// saturation
+	delta := max - min
+	if delta == 0 {
+		// it's gray
+		return HSL{0, 0, l}
+	}
+
+	// it's not gray
+	if l < 0.5 {
+		s = delta / (max + min)
+	} else {
+		s = delta / (2 - max - min)
+	}
+
+	// hue
+	r2 := (((max - fracR) / 6) + (delta / 2)) / delta
+	g2 := (((max - fracG) / 6) + (delta / 2)) / delta
+	b2 := (((max - fracB) / 6) + (delta / 2)) / delta
+	switch {
+	case fracR == max:
+		h = b2 - g2
+	case fracG == max:
+		h = (1.0 / 3.0) + r2 - b2
+	case fracB == max:
+		h = (2.0 / 3.0) + g2 - r2
+	}
+
+	// fix wraparounds
+	switch {
+	case h < 0:
+		h++
+	case h > 1:
+		h--
+	}
+
+	return HSL{h, s, l}
+}
+
+// ToHexCode returns a Hex color string equivalent of the the
+// RGB color
+func (c RGB) ToHexCode() HexCode {
+	return HexCode(fmt.Sprintf("%02x%02x%02x", c.R, c.G, c.B))
+}
