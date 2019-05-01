@@ -47,3 +47,32 @@ func TestHexToRGB(t *testing.T) {
 		})
 	}
 }
+func TestHexToHSL(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HexCode
+		out  colors.HSL
+		err  bool
+	}{
+		{
+			desc: "converts a hex string to HSL",
+			in:   colors.NewHexCode("#deadaf"),
+			out:  colors.NewHSL(357.55, 42.61, 77.45),
+			err:  false,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			result, err := tC.in.ToHSL()
+			if !tC.err && err != nil {
+				t.Errorf(err.Error())
+			}
+			if tC.err && err == nil {
+				t.Errorf("expecting error to not be nil")
+			}
+			if result.String() != tC.out.String() {
+				t.Errorf("expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}

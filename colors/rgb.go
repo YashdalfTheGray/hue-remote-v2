@@ -40,7 +40,7 @@ func (c RGB) ToHSL() HSL {
 	delta := max - min
 	if delta == 0 {
 		// it's gray
-		return HSL{0, 0, l}
+		return HSL{0, 0, l * 100}
 	}
 
 	// it's not gray
@@ -71,7 +71,7 @@ func (c RGB) ToHSL() HSL {
 		h--
 	}
 
-	return HSL{h, s, l}
+	return HSL{h * 360, s * 100, l * 100}
 }
 
 // ToHexCode returns a Hex color string equivalent of the the
