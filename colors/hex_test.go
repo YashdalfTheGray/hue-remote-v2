@@ -60,6 +60,18 @@ func TestHexToHSL(t *testing.T) {
 			out:  colors.NewHSL(357.55, 42.61, 77.45),
 			err:  false,
 		},
+		{
+			desc: "errors on string without the # sign",
+			in:   colors.NewHexCode("deadaf"),
+			out:  colors.NewHSL(0, 0, 0),
+			err:  true,
+		},
+		{
+			desc: "errors on invalid characters",
+			in:   colors.NewHexCode("#jklmno"),
+			out:  colors.NewHSL(0, 0, 0),
+			err:  true,
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
