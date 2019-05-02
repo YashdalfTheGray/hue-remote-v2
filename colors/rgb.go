@@ -77,5 +77,5 @@ func (c RGB) ToHSL() HSL {
 // ToHexCode returns a Hex color string equivalent of the the
 // RGB color
 func (c RGB) ToHexCode() HexCode {
-	return HexCode(fmt.Sprintf("%02x%02x%02x", c.R, c.G, c.B))
+	return HexCode(fmt.Sprintf("#%02x%02x%02x", c.R, c.G, c.B))
 }
