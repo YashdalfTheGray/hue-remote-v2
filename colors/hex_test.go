@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/yashdalfthegray/hue-remote-v2/colors"
+	"github.com/yashdalfthegray/hue-remote-v2/utils"
 )
 
 func TestHexToRGB(t *testing.T) {
@@ -16,19 +17,19 @@ func TestHexToRGB(t *testing.T) {
 		{
 			desc: "converts a hex string to RGB",
 			in:   colors.NewHexCode("#deadaf"),
-			out:  colors.NewRGB(222, 173, 175),
+			out:  utils.Must(colors.NewRGB(222, 173, 175)).(colors.RGB),
 			err:  false,
 		},
 		{
 			desc: "errors on string without the # sign",
 			in:   colors.NewHexCode("deadaf"),
-			out:  colors.NewRGB(0, 0, 0),
+			out:  utils.Must(colors.NewRGB(0, 0, 0)).(colors.RGB),
 			err:  true,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.NewHexCode("#jklmno"),
-			out:  colors.NewRGB(0, 0, 0),
+			out:  utils.Must(colors.NewRGB(0, 0, 0)).(colors.RGB),
 			err:  true,
 		},
 	}
@@ -57,19 +58,19 @@ func TestHexToHSL(t *testing.T) {
 		{
 			desc: "converts a hex string to HSL",
 			in:   colors.NewHexCode("#deadaf"),
-			out:  colors.NewHSL(357.55, 42.61, 77.45),
+			out:  utils.Must(colors.NewHSL(357.55, 42.61, 77.45)).(colors.HSL),
 			err:  false,
 		},
 		{
 			desc: "errors on string without the # sign",
 			in:   colors.NewHexCode("deadaf"),
-			out:  colors.NewHSL(0, 0, 0),
+			out:  utils.Must(colors.NewHSL(0, 0, 0)).(colors.HSL),
 			err:  true,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.NewHexCode("#jklmno"),
-			out:  colors.NewHSL(0, 0, 0),
+			out:  utils.Must(colors.NewHSL(0, 0, 0)).(colors.HSL),
 			err:  true,
 		},
 	}
