@@ -1,6 +1,7 @@
 package colors
 
 import (
+	"errors"
 	"fmt"
 	"math"
 )
@@ -13,8 +14,12 @@ type RGB struct {
 
 // NewRGB returns a new RGB object constructured out of the
 // values given to the constructor function
-func NewRGB(h, s, l uint8) RGB {
-	return RGB{h, s, l}
+func NewRGB(r, g, b uint8) (RGB, error) {
+	if r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255 {
+		return RGB{}, errors.New("Invalid argument error")
+	}
+
+	return RGB{r, g, b}, nil
 }
 
 // String returns a string representation of the RGB object

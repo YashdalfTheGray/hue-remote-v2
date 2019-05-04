@@ -1,6 +1,7 @@
 package colors
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -13,8 +14,11 @@ type HSL struct {
 
 // NewHSL returns a new HSL object constructured out of the
 // values given to the constructor function
-func NewHSL(h, s, l float64) HSL {
-	return HSL{h, s, l}
+func NewHSL(h, s, l float64) (HSL, error) {
+	if h < 0 || h > 360 || s < 0 || s > 100 || l < 0 || l > 100 {
+		return HSL{}, errors.New("Invalid argument error")
+	}
+	return HSL{h, s, l}, nil
 }
 
 // String returns a string representation of the HSL object
