@@ -17,19 +17,19 @@ func TestHexToRGB(t *testing.T) {
 		{
 			desc: "converts a hex string to RGB",
 			in:   colors.NewHexCode("#deadaf"),
-			out:  utils.Must(colors.NewRGB(222, 173, 175)).(colors.RGB),
+			out:  colors.NewRGB(222, 173, 175),
 			err:  false,
 		},
 		{
 			desc: "errors on string without the # sign",
 			in:   colors.NewHexCode("deadaf"),
-			out:  utils.Must(colors.NewRGB(0, 0, 0)).(colors.RGB),
+			out:  colors.NewRGB(0, 0, 0),
 			err:  true,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.NewHexCode("#jklmno"),
-			out:  utils.Must(colors.NewRGB(0, 0, 0)).(colors.RGB),
+			out:  colors.NewRGB(0, 0, 0),
 			err:  true,
 		},
 	}
