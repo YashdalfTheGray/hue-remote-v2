@@ -22,8 +22,8 @@ func ValidateColorArray(ca []int) bool {
 
 	result := true
 
-	for i := 0; i < len(ca); i++ {
-		result = result && (ca[i] >= 0 && ca[i] <= 255)
+	for _, v := range ca {
+		result = result && (v >= 0 && v <= 255)
 	}
 
 	return result

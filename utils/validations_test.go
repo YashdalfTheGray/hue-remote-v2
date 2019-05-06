@@ -61,3 +61,34 @@ func TestValidateColorString(t *testing.T) {
 		})
 	}
 }
+
+func TestValidateColorArray(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   []int
+		out  bool
+	}{
+		{
+			desc: "evaluates true for a good color array",
+			in:   []int{89, 236, 9},
+			out:  true,
+		},
+		{
+			desc: "evaluates false for one with only 2 items",
+			in:   []int{89, 236},
+			out:  false,
+		},
+		{
+			desc: "evaluates false for one with 4 items",
+			in:   []int{89, 236, 9, 200},
+			out:  false,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if utils.ValidateColorArray(tC.in) != tC.out {
+				t.Errorf("Expected %t but got %t", tC.out, !tC.out)
+			}
+		})
+	}
+}
