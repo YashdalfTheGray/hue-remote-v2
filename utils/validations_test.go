@@ -83,6 +83,11 @@ func TestValidateColorArray(t *testing.T) {
 			in:   []int{89, 236, 9, 200},
 			out:  false,
 		},
+		{
+			desc: "evaluates false for out of bounds integers",
+			in:   []int{512, 65, 234},
+			out:  false,
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
