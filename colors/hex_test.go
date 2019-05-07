@@ -7,6 +7,27 @@ import (
 	"github.com/yashdalfthegray/hue-remote-v2/utils"
 )
 
+func TestHexToString(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HexCode
+		out  string
+	}{
+		{
+			desc: "prints out the string that's the hex code",
+			in:   colors.HexCode("#164080"),
+			out:  "#164080",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if tC.in.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, tC.in.String())
+			}
+		})
+	}
+}
+
 func TestHexToRGB(t *testing.T) {
 	testCases := []struct {
 		desc string
