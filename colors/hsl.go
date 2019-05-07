@@ -23,18 +23,18 @@ func NewHSL(h, s, l float64) (HSL, error) {
 
 // String returns a string representation of the HSL object
 func (c HSL) String() string {
-	return fmt.Sprintf("hsl(%.2f, %.2f, %.2f)", c.H, c.S, c.L)
+	return fmt.Sprintf("hsl(%.0f, %.0f%%, %.0f%%)", c.H, c.S, c.L)
 }
 
 // ToRGB converts an HSL color to its RGB representation
 func (c HSL) ToRGB() RGB {
-	h := c.H
-	s := c.S
-	l := c.L
+	h := c.H / 360.0
+	s := c.S / 100.0
+	l := c.L / 100.0
 
 	if s == 0 {
 		// it's gray
-		return RGB{toScaled(l), toScaled(l), toScaled(l)}
+		return RGB{uint8(l * 255.0), uint8(l * 255.0), uint8(l * 255.0)}
 	}
 
 	var v1, v2 float64
@@ -50,7 +50,7 @@ func (c HSL) ToRGB() RGB {
 	g := hueToRGB(v1, v2, h)
 	b := hueToRGB(v1, v2, h-(1.0/3.0))
 
-	return RGB{toScaled(r), toScaled(g), toScaled(b)}
+	return RGB{uint8(r * 255.0), uint8(g * 255.0), uint8(b * 255.0)}
 }
 
 // ToHexCode returns a hex color string equivalent of the
