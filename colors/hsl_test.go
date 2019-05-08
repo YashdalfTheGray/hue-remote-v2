@@ -82,10 +82,57 @@ func TestHSLToRGB(t *testing.T) {
 			in:   utils.Must(colors.NewHSL(0, 0, 50)).(colors.HSL),
 			out:  colors.NewRGB(127, 127, 127),
 		},
+		{
+			desc: "converts a low luminosity HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(256, 100, 15)).(colors.HSL),
+			out:  colors.NewRGB(20, 0, 76),
+		},
+		{
+			desc: "converts a green HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(90, 100, 15)).(colors.HSL),
+			out:  colors.NewRGB(38, 76, 0),
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			result := tC.in.ToRGB()
+			if result.String() != tC.out.String() {
+				t.Errorf("Expected %s but got %s", tC.out.String(), result.String())
+			}
+		})
+	}
+}
+
+func TestHSLToHexCode(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSL
+		out  colors.HexCode
+	}{
+		{
+			desc: "converts a non-gray HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(200, 90, 50)).(colors.HSL),
+			out:  colors.NewHexCode("#0ca5f2"),
+		},
+		{
+			desc: "converts a gray HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(0, 0, 50)).(colors.HSL),
+			out:  colors.NewHexCode("#7f7f7f"),
+		},
+		{
+			desc: "converts a low luminosity HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(256, 100, 15)).(colors.HSL),
+			out:  colors.NewHexCode("#14004c"),
+		},
+		{
+			desc: "converts a green HSL color to RGB",
+			in:   utils.Must(colors.NewHSL(90, 100, 15)).(colors.HSL),
+			out:  colors.NewHexCode("#264c00"),
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			result := tC.in.ToHexCode()
 			if result.String() != tC.out.String() {
 				t.Errorf("Expected %s but got %s", tC.out.String(), result.String())
 			}
