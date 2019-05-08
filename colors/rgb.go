@@ -26,9 +26,9 @@ func (c RGB) String() string {
 func (c RGB) ToHSL() HSL {
 	var h, s, l float64
 
-	fracR := toFractional(c.R)
-	fracG := toFractional(c.G)
-	fracB := toFractional(c.B)
+	fracR := float64(c.R) / 255.0
+	fracG := float64(c.G) / 255.0
+	fracB := float64(c.B) / 255.0
 
 	max := math.Max(math.Max(fracR, fracG), fracB)
 	min := math.Min(math.Min(fracR, fracG), fracB)
