@@ -64,6 +64,11 @@ func TestRGBToHexCode(t *testing.T) {
 			in:   colors.NewRGB(0, 0, 0),
 			out:  "#000000",
 		},
+		{
+			desc: "converts another RGB color to hex string",
+			in:   colors.NewRGB(68, 138, 255),
+			out:  "#448aff",
+		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
@@ -89,6 +94,16 @@ func TestRGBToHSL(t *testing.T) {
 			desc: "converts a gray RGB color to HSL",
 			in:   colors.NewRGB(128, 128, 128),
 			out:  utils.Must(colors.NewHSL(0, 0, 50)).(colors.HSL),
+		},
+		{
+			desc: "converts a dark RGB color to HSL",
+			in:   colors.NewRGB(40, 34, 90),
+			out:  utils.Must(colors.NewHSL(246, 45, 24)).(colors.HSL),
+		},
+		{
+			desc: "converts a mostly green RGB color to HSL",
+			in:   colors.NewRGB(40, 150, 90),
+			out:  utils.Must(colors.NewHSL(147, 58, 37)).(colors.HSL),
 		},
 	}
 	for _, tC := range testCases {
