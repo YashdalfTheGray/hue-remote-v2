@@ -27,11 +27,3 @@ func TestNewMissingEnvError(t *testing.T) {
 		})
 	}
 }
-
-// func TestNilMissingEnvError(t *testing.T) {
-// 	var nilEnvError *models.MissingEnvError = nil
-
-// 	if nilEnvError.Error() != "" {
-// 		t.Errorf("Expected to be able to call method MissingEnvError.Error() with nil receiver")
-// 	}
-// }
