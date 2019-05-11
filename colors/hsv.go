@@ -3,6 +3,7 @@ package colors
 import (
 	"errors"
 	"fmt"
+	"math"
 )
 
 // HSV represents a color in the HSV color space. This also
@@ -22,4 +23,62 @@ func NewHSV(h, s, v float64) (HSV, error) {
 // String returns a string representation of the HSV object
 func (c HSV) String() string {
 	return fmt.Sprintf("hsv(%.0f, %.0f%%, %.0f%%)", c.H, c.S, c.V)
+}
+
+// ToRGB converts the HSV color to the RGB representation
+func (c HSV) ToRGB() RGB {
+	h := c.H / 60.0
+	s := c.S / 100.0
+	v := c.V / 100.0
+	hi := int(math.Floor(h)) % 6
+
+	f := h - math.Floor(h)
+	p := 255 * v * (1 - s)
+	q := 255 * v * (1 - (s * f))
+	t := 255 * v * (1 - (s * (1 - f)))
+
+	v *= 255
+
+	switch hi {
+	case 0:
+		return NewRGB(uint8(v), uint8(t), uint8(p))
+	case 1:
+		return NewRGB(uint8(q), uint8(v), uint8(p))
+	case 2:
+		return NewRGB(uint8(p), uint8(v), uint8(t))
+	case 3:
+		return NewRGB(uint8(p), uint8(q), uint8(v))
+	case 4:
+		return NewRGB(uint8(t), uint8(p), uint8(v))
+	case 5:
+		return NewRGB(uint8(v), uint8(p), uint8(q))
+	default:
+		return RGB{}
+	}
+}
+
+// ToHexCode converts the HSV color into the HexCode representation
+func (c HSV) ToHexCode() HexCode {
+	return c.ToRGB().ToHexCode()
+}
+
+// ToHSL converts the HSV color into the HSL representation
+func (c HSV) ToHSL() (HSL, error) {
+	h := c.H
+	s := c.S / 100.0
+	v := c.V / 100.0
+	vmin := math.Max(v, 0.01)
+	l := (2 - s) * v
+	lmin := (2 - s) * vmin
+	sl := s * vmin
+
+	if lmin <= l {
+		sl /= lmin
+	} else {
+		sl /= 2 - lmin
+	}
+
+	l /= 2
+
+	return NewHSL(h, sl*100.0, l*100.0)
 }
