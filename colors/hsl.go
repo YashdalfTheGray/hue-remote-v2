@@ -60,6 +60,40 @@ func (c HSL) ToHexCode() HexCode {
 	return c.ToRGB().ToHexCode()
 }
 
+// ToHSV returns an HSV representation of the HSL color
+func (c HSL) ToHSV() (HSV, error) {
+	h := c.H
+	s := c.S / 100.0
+	l := c.L / 100.0
+	smin := s
+	lmin := math.Max(l, 0.01)
+
+	l *= 2
+
+	if l <= 1 {
+		s *= l
+	} else {
+		s *= 2 - l
+	}
+
+	if lmin <= 1 {
+		smin *= lmin
+	} else {
+		smin *= 2 - lmin
+	}
+
+	v := (l + s) / 2
+
+	var sv float64
+	if l == 0 {
+		sv = (2 * smin) / (lmin + smin)
+	} else {
+		sv = (2 * s) / (l + s)
+	}
+
+	return NewHSV(h, sv*100.0, v*100.0)
+}
+
 func hueToRGB(v1, v2, h float64) float64 {
 	if h < 0 {
 		h++
