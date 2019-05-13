@@ -44,3 +44,24 @@ func TestNewHSV(t *testing.T) {
 		})
 	}
 }
+
+func TestHSVString(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSV
+		out  string
+	}{
+		{
+			desc: "builds a string out of an HSV color",
+			in:   utils.Must(colors.NewHSV(200, 90, 50)).(colors.HSV),
+			out:  "hsv(200, 90%, 50%)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if tC.in.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, tC.in.String())
+			}
+		})
+	}
+}
