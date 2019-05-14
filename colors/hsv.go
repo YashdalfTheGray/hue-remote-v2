@@ -82,3 +82,9 @@ func (c HSV) ToHSL() (HSL, error) {
 
 	return NewHSL(h, sl*100.0, l*100.0)
 }
+
+// ToHueHSB returns the Hue accepted color representation of
+// the HSV color
+func (c HSV) ToHueHSB() (HueHSB, error) {
+	return NewHueHSB(int((c.H/360.0)*65535), int((c.S/100.0)*254), int((c.V/100.0)*253)+1)
+}
