@@ -26,9 +26,18 @@ func (c HueHSB) String() string {
 	return fmt.Sprintf("hue(%d, %d, %d)", c.H, c.S, c.B)
 }
 
+// ToHSV returns the HSV representation of this HueHSB color
+func (c HueHSB) ToHSV() (HSV, error) {
+	return NewHSV(float64((c.H/65535)*360), float64((c.S/254)*100), float64((c.B/253)*100))
+}
+
 // ToHSL returns the HSL representation of this HueHSB color
 func (c HueHSB) ToHSL() (HSL, error) {
-	return NewHSL(float64((c.H/65535)*360), float64((c.S/254)*100), float64((c.B/253)*100))
+	hsv, err := c.ToHSV()
+	if err != nil {
+		return HSL{}, err
+	}
+	return hsv.ToHSL()
 }
 
 // ToRGB returns the RGB representation of this HueHSB color
