@@ -94,6 +94,16 @@ func (c HSL) ToHSV() (HSV, error) {
 	return NewHSV(h, sv*100.0, v*100.0)
 }
 
+// ToHueHSB returns the HueHSB representation of the HSL color
+func (c HSL) ToHueHSB() (HueHSB, error) {
+	hsv, err := c.ToHSV()
+	if err != nil {
+		return HueHSB{}, err
+	}
+
+	return hsv.ToHueHSB()
+}
+
 func hueToRGB(v1, v2, h float64) float64 {
 	if h < 0 {
 		h++
