@@ -65,3 +65,55 @@ func TestHSVString(t *testing.T) {
 		})
 	}
 }
+
+func TestToRGB(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSV
+		out  string
+	}{
+		{
+			desc: "converts an HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(216.23, 82.81, 50.2)).(colors.HSV),
+			out:  "rgb(22, 64, 128)",
+		},
+		{
+			desc: "converts an orange HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(23, 100, 100)).(colors.HSV),
+			out:  "rgb(255, 97, 0)",
+		},
+		{
+			desc: "converts a green HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(82, 100, 100)).(colors.HSV),
+			out:  "rgb(161, 255, 0)",
+		},
+		{
+			desc: "converts a teal HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(170, 100, 100)).(colors.HSV),
+			out:  "rgb(0, 255, 212)",
+		},
+		{
+			desc: "converts a blue HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(226, 100, 100)).(colors.HSV),
+			out:  "rgb(0, 59, 255)",
+		},
+		{
+			desc: "converts a purple HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(280, 100, 100)).(colors.HSV),
+			out:  "rgb(170, 0, 255)",
+		},
+		{
+			desc: "converts another red HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(344, 100, 100)).(colors.HSV),
+			out:  "rgb(255, 0, 67)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			rgbColor := tC.in.ToRGB()
+			if rgbColor.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, rgbColor.String())
+			}
+		})
+	}
+}

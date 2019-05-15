@@ -52,9 +52,8 @@ func (c HSV) ToRGB() RGB {
 		return NewRGB(uint8(t), uint8(p), uint8(v))
 	case 5:
 		return NewRGB(uint8(v), uint8(p), uint8(q))
-	default:
-		return RGB{}
 	}
+	panic(errors.New("A number modulo 6 should never be outside of range [0, 5]"))
 }
 
 // ToHexCode converts the HSV color into the HexCode representation
