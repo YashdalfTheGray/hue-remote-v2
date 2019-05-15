@@ -47,3 +47,13 @@ func (cs HexCode) ToHSV() (HSV, error) {
 
 	return rgb.ToHSV()
 }
+
+// ToHueHSB converts a HexCode string color into its HueHSB equivalent
+func (cs HexCode) ToHueHSB() (HueHSB, error) {
+	rgb, err := cs.ToRGB()
+	if err != nil {
+		return HueHSB{}, err
+	}
+
+	return rgb.ToHueHSB()
+}

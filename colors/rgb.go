@@ -122,3 +122,13 @@ func (c RGB) ToHSV() (HSV, error) {
 func (c RGB) ToHexCode() HexCode {
 	return HexCode(fmt.Sprintf("#%02x%02x%02x", c.R, c.G, c.B))
 }
+
+// ToHueHSB returns a HueHSB representation of the RGB color
+func (c RGB) ToHueHSB() (HueHSB, error) {
+	hsv, err := c.ToHSV()
+	if err != nil {
+		return HueHSB{}, err
+	}
+
+	return hsv.ToHueHSB()
+}
