@@ -101,7 +101,7 @@ func (c HSL) ToHueHSB() (HueHSB, error) {
 		return HueHSB{}, err
 	}
 
-	return hsv.ToHueHSB()
+	return hsv.ToHueHSB(), nil
 }
 
 func hueToRGB(v1, v2, h float64) float64 {

@@ -27,35 +27,21 @@ func (c HueHSB) String() string {
 }
 
 // ToHSV returns the HSV representation of this HueHSB color
-func (c HueHSB) ToHSV() (HSV, error) {
-	return NewHSV(float64((c.H/65535)*360), float64((c.S/254)*100), float64((c.B/253)*100))
+func (c HueHSB) ToHSV() HSV {
+	return HSV{float64((c.H / 65535) * 360), float64((c.S / 254) * 100), float64((c.B / 253) * 100)}
 }
 
 // ToHSL returns the HSL representation of this HueHSB color
-func (c HueHSB) ToHSL() (HSL, error) {
-	hsv, err := c.ToHSV()
-	if err != nil {
-		return HSL{}, err
-	}
-	return hsv.ToHSL()
+func (c HueHSB) ToHSL() HSL {
+	return c.ToHSV().ToHSL()
 }
 
 // ToRGB returns the RGB representation of this HueHSB color
-func (c HueHSB) ToRGB() (RGB, error) {
-	hsl, err := c.ToHSL()
-	if err != nil {
-		return RGB{}, err
-	}
-
-	return hsl.ToRGB(), nil
+func (c HueHSB) ToRGB() RGB {
+	return c.ToHSV().ToRGB()
 }
 
 // ToHexCode returns the Hex code representation of this HueHSB color
-func (c HueHSB) ToHexCode() (HexCode, error) {
-	hsl, err := c.ToHSL()
-	if err != nil {
-		return "", err
-	}
-
-	return hsl.ToHexCode(), nil
+func (c HueHSB) ToHexCode() HexCode {
+	return c.ToHSV().ToRGB().ToHexCode()
 }

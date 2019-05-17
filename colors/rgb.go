@@ -130,5 +130,5 @@ func (c RGB) ToHueHSB() (HueHSB, error) {
 		return HueHSB{}, err
 	}
 
-	return hsv.ToHueHSB()
+	return hsv.ToHueHSB(), nil
 }
