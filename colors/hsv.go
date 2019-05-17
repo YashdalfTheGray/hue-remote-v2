@@ -41,17 +41,17 @@ func (c HSV) ToRGB() RGB {
 
 	switch hi {
 	case 0:
-		return NewRGB(uint8(v), uint8(t), uint8(p))
+		return RGB{uint8(v), uint8(t), uint8(p)}
 	case 1:
-		return NewRGB(uint8(q), uint8(v), uint8(p))
+		return RGB{uint8(q), uint8(v), uint8(p)}
 	case 2:
-		return NewRGB(uint8(p), uint8(v), uint8(t))
+		return RGB{uint8(p), uint8(v), uint8(t)}
 	case 3:
-		return NewRGB(uint8(p), uint8(q), uint8(v))
+		return RGB{uint8(p), uint8(q), uint8(v)}
 	case 4:
-		return NewRGB(uint8(t), uint8(p), uint8(v))
+		return RGB{uint8(t), uint8(p), uint8(v)}
 	case 5:
-		return NewRGB(uint8(v), uint8(p), uint8(q))
+		return RGB{uint8(v), uint8(p), uint8(q)}
 	}
 	panic(errors.New("A number modulo 6 should never be outside of range [0, 5]"))
 }
@@ -62,7 +62,7 @@ func (c HSV) ToHexCode() HexCode {
 }
 
 // ToHSL converts the HSV color into the HSL representation
-func (c HSV) ToHSL() (HSL, error) {
+func (c HSV) ToHSL() HSL {
 	h := c.H
 	s := c.S / 100.0
 	v := c.V / 100.0
@@ -79,11 +79,11 @@ func (c HSV) ToHSL() (HSL, error) {
 
 	l /= 2
 
-	return NewHSL(h, sl*100.0, l*100.0)
+	return HSL{h, sl * 100.0, l * 100.0}
 }
 
 // ToHueHSB returns the Hue accepted color representation of
 // the HSV color
-func (c HSV) ToHueHSB() (HueHSB, error) {
-	return NewHueHSB(int((c.H/360.0)*65535), int((c.S/100.0)*254), int((c.V/100.0)*253)+1)
+func (c HSV) ToHueHSB() HueHSB {
+	return HueHSB{int((c.H / 360.0) * 65535), int((c.S / 100.0) * 254), int((c.V/100.0)*253) + 1}
 }
