@@ -169,3 +169,35 @@ func TestToHexCode(t *testing.T) {
 		})
 	}
 }
+
+func TestToHSL(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSV
+		out  string
+	}{
+		{
+			desc: "converts a bright HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(344, 100, 100)).(colors.HSV),
+			out:  "hsl(344, 100%, 50%)",
+		},
+		{
+			desc: "converts a dark HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(198, 60, 1)).(colors.HSV),
+			out:  "hsl(198, 43%, 1%)",
+		},
+		{
+			desc: "converts a black HSV color to RGB",
+			in:   utils.Must(colors.NewHSV(198, 60, 0.5)).(colors.HSV),
+			out:  "hsl(198, 0%, 0%)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			rgbColor := tC.in.ToHSL()
+			if rgbColor.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, rgbColor.String())
+			}
+		})
+	}
+}
