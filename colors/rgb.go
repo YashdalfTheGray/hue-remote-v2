@@ -75,7 +75,7 @@ func (c RGB) ToHSL() HSL {
 }
 
 // ToHSV returns the HSV representation of the RGB color
-func (c RGB) ToHSV() (HSV, error) {
+func (c RGB) ToHSV() HSV {
 	var rdif, gdif, bdif, h, s, v float64
 
 	fracR := float64(c.R) / 255.0
@@ -114,7 +114,7 @@ func (c RGB) ToHSV() (HSV, error) {
 		}
 	}
 
-	return NewHSV(h*360.0, s*100.0, v*100.0)
+	return HSV{h * 360.0, s * 100.0, v * 100.0}
 }
 
 // ToHexCode returns a Hex color string equivalent of the the
@@ -124,11 +124,6 @@ func (c RGB) ToHexCode() HexCode {
 }
 
 // ToHueHSB returns a HueHSB representation of the RGB color
-func (c RGB) ToHueHSB() (HueHSB, error) {
-	hsv, err := c.ToHSV()
-	if err != nil {
-		return HueHSB{}, err
-	}
-
-	return hsv.ToHueHSB(), nil
+func (c RGB) ToHueHSB() HueHSB {
+	return c.ToHSV().ToHueHSB()
 }
