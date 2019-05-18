@@ -61,7 +61,7 @@ func (c HSL) ToHexCode() HexCode {
 }
 
 // ToHSV returns an HSV representation of the HSL color
-func (c HSL) ToHSV() (HSV, error) {
+func (c HSL) ToHSV() HSV {
 	h := c.H
 	s := c.S / 100.0
 	l := c.L / 100.0
@@ -91,17 +91,12 @@ func (c HSL) ToHSV() (HSV, error) {
 		sv = (2 * s) / (l + s)
 	}
 
-	return NewHSV(h, sv*100.0, v*100.0)
+	return HSV{h, sv * 100.0, v * 100.0}
 }
 
 // ToHueHSB returns the HueHSB representation of the HSL color
-func (c HSL) ToHueHSB() (HueHSB, error) {
-	hsv, err := c.ToHSV()
-	if err != nil {
-		return HueHSB{}, err
-	}
-
-	return hsv.ToHueHSB(), nil
+func (c HSL) ToHueHSB() HueHSB {
+	return c.ToHSV().ToHueHSB()
 }
 
 func hueToRGB(v1, v2, h float64) float64 {
