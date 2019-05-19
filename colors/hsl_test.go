@@ -4,14 +4,13 @@ import (
 	"testing"
 
 	"github.com/yashdalfthegray/hue-remote-v2/colors"
-	"github.com/yashdalfthegray/hue-remote-v2/utils"
 )
 
 func TestNewHSL(t *testing.T) {
 	testCases := []struct {
 		desc    string
 		h, s, l float64
-		out     colors.HSL
+		out     string
 		err     bool
 	}{
 		{
@@ -19,7 +18,7 @@ func TestNewHSL(t *testing.T) {
 			h:    250.4,
 			s:    65,
 			l:    35,
-			out:  utils.Must(colors.NewHSL(250.4, 65, 35)).(colors.HSL),
+			out:  colors.HSL{250.4, 65, 35}.String(),
 			err:  false,
 		},
 		{
@@ -27,7 +26,7 @@ func TestNewHSL(t *testing.T) {
 			h:    378,
 			s:    65,
 			l:    35,
-			out:  utils.Must(colors.NewHSL(0, 0, 0)).(colors.HSL),
+			out:  colors.HSL{0, 0, 0}.String(),
 			err:  true,
 		},
 	}
@@ -38,8 +37,8 @@ func TestNewHSL(t *testing.T) {
 				t.Errorf("Expected to not have error but got error %s", err.Error())
 			} else if tC.err && err == nil {
 				t.Errorf("Expected error but got nil")
-			} else if color.String() != tC.out.String() {
-				t.Errorf("Expecting %s but got %s", tC.out.String(), color.String())
+			} else if color.String() != tC.out {
+				t.Errorf("Expecting %s but got %s", tC.out, color.String())
 			}
 		})
 	}
@@ -53,7 +52,7 @@ func TestHSLString(t *testing.T) {
 	}{
 		{
 			desc: "builds a string out of an HSL color",
-			in:   utils.Must(colors.NewHSL(200, 90, 50)).(colors.HSL),
+			in:   colors.HSL{200, 90, 50},
 			out:  "hsl(200, 90%, 50%)",
 		},
 	}
@@ -70,34 +69,34 @@ func TestHSLToRGB(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HSL
-		out  colors.RGB
+		out  string
 	}{
 		{
 			desc: "converts a non-gray HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(200, 90, 50)).(colors.HSL),
-			out:  colors.NewRGB(12, 165, 242),
+			in:   colors.HSL{200, 90, 50},
+			out:  colors.RGB{12, 165, 242}.String(),
 		},
 		{
 			desc: "converts a gray HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(0, 0, 50)).(colors.HSL),
-			out:  colors.NewRGB(127, 127, 127),
+			in:   colors.HSL{0, 0, 50},
+			out:  colors.RGB{127, 127, 127}.String(),
 		},
 		{
 			desc: "converts a low luminosity HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(256, 100, 15)).(colors.HSL),
-			out:  colors.NewRGB(20, 0, 76),
+			in:   colors.HSL{256, 100, 15},
+			out:  colors.RGB{20, 0, 76}.String(),
 		},
 		{
 			desc: "converts a green HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(90, 100, 15)).(colors.HSL),
-			out:  colors.NewRGB(38, 76, 0),
+			in:   colors.HSL{90, 100, 15},
+			out:  colors.RGB{38, 76, 0}.String(),
 		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			result := tC.in.ToRGB()
-			if result.String() != tC.out.String() {
-				t.Errorf("Expected %s but got %s", tC.out.String(), result.String())
+			if result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
@@ -107,34 +106,34 @@ func TestHSLToHexCode(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HSL
-		out  colors.HexCode
+		out  string
 	}{
 		{
 			desc: "converts a non-gray HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(200, 90, 50)).(colors.HSL),
-			out:  colors.NewHexCode("#0ca5f2"),
+			in:   colors.HSL{200, 90, 50},
+			out:  "#0ca5f2",
 		},
 		{
 			desc: "converts a gray HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(0, 0, 50)).(colors.HSL),
-			out:  colors.NewHexCode("#7f7f7f"),
+			in:   colors.HSL{0, 0, 50},
+			out:  "#7f7f7f",
 		},
 		{
 			desc: "converts a low luminosity HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(256, 100, 15)).(colors.HSL),
-			out:  colors.NewHexCode("#14004c"),
+			in:   colors.HSL{256, 100, 15},
+			out:  "#14004c",
 		},
 		{
 			desc: "converts a green HSL color to RGB",
-			in:   utils.Must(colors.NewHSL(90, 100, 15)).(colors.HSL),
-			out:  colors.NewHexCode("#264c00"),
+			in:   colors.HSL{90, 100, 15},
+			out:  "#264c00",
 		},
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			result := tC.in.ToHexCode()
-			if result.String() != tC.out.String() {
-				t.Errorf("Expected %s but got %s", tC.out.String(), result.String())
+			if result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
