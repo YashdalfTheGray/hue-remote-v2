@@ -39,21 +39,21 @@ func (cs HexCode) ToHSL() (HSL, error) {
 }
 
 // ToHSV converts a HexCode string color to its HSV equivalent
-func (cs HexCode) ToHSV() HSV {
+func (cs HexCode) ToHSV() (HSV, error) {
 	rgb, err := cs.ToRGB()
 	if err != nil {
-		return HSV{}
+		return HSV{}, err
 	}
 
-	return rgb.ToHSV()
+	return rgb.ToHSV(), nil
 }
 
 // ToHueHSB converts a HexCode string color into its HueHSB equivalent
-func (cs HexCode) ToHueHSB() HueHSB {
+func (cs HexCode) ToHueHSB() (HueHSB, error) {
 	rgb, err := cs.ToRGB()
 	if err != nil {
-		return HueHSB{}
+		return HueHSB{}, err
 	}
 
-	return rgb.ToHueHSB()
+	return rgb.ToHueHSB(), nil
 }
