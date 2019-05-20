@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/yashdalfthegray/hue-remote-v2/colors"
-	"github.com/yashdalfthegray/hue-remote-v2/utils"
 )
 
 func TestNewHSV(t *testing.T) {
@@ -19,7 +18,7 @@ func TestNewHSV(t *testing.T) {
 			h:    45,
 			s:    90,
 			v:    100,
-			out:  utils.Must(colors.NewHSV(45, 90, 100)).(colors.HSV),
+			out:  colors.HSV{45, 90, 100},
 			err:  false,
 		},
 		{
@@ -53,7 +52,7 @@ func TestHSVString(t *testing.T) {
 	}{
 		{
 			desc: "builds a string out of an HSV color",
-			in:   utils.Must(colors.NewHSV(200, 90, 50)).(colors.HSV),
+			in:   colors.HSV{200, 90, 50},
 			out:  "hsv(200, 90%, 50%)",
 		},
 	}
@@ -66,7 +65,7 @@ func TestHSVString(t *testing.T) {
 	}
 }
 
-func TestToRGB(t *testing.T) {
+func TestHSVToRGB(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HSV
@@ -74,37 +73,37 @@ func TestToRGB(t *testing.T) {
 	}{
 		{
 			desc: "converts an HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(216.23, 82.81, 50.2)).(colors.HSV),
+			in:   colors.HSV{216.23, 82.81, 50.2},
 			out:  "rgb(22, 64, 128)",
 		},
 		{
 			desc: "converts an orange HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(23, 100, 100)).(colors.HSV),
+			in:   colors.HSV{23, 100, 100},
 			out:  "rgb(255, 97, 0)",
 		},
 		{
 			desc: "converts a green HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(82, 100, 100)).(colors.HSV),
+			in:   colors.HSV{82, 100, 100},
 			out:  "rgb(161, 255, 0)",
 		},
 		{
 			desc: "converts a teal HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(170, 100, 100)).(colors.HSV),
+			in:   colors.HSV{170, 100, 100},
 			out:  "rgb(0, 255, 212)",
 		},
 		{
 			desc: "converts a blue HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(226, 100, 100)).(colors.HSV),
+			in:   colors.HSV{226, 100, 100},
 			out:  "rgb(0, 59, 255)",
 		},
 		{
 			desc: "converts a purple HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(280, 100, 100)).(colors.HSV),
+			in:   colors.HSV{280, 100, 100},
 			out:  "rgb(170, 0, 255)",
 		},
 		{
 			desc: "converts another red HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(344, 100, 100)).(colors.HSV),
+			in:   colors.HSV{344, 100, 100},
 			out:  "rgb(255, 0, 67)",
 		},
 	}
@@ -118,7 +117,7 @@ func TestToRGB(t *testing.T) {
 	}
 }
 
-func TestToHexCode(t *testing.T) {
+func TestHSVToHexCode(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HSV
@@ -126,37 +125,37 @@ func TestToHexCode(t *testing.T) {
 	}{
 		{
 			desc: "converts an HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(216.23, 82.81, 50.2)).(colors.HSV),
+			in:   colors.HSV{216.23, 82.81, 50.2},
 			out:  "#164080",
 		},
 		{
 			desc: "converts an orange HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(23, 100, 100)).(colors.HSV),
+			in:   colors.HSV{23, 100, 100},
 			out:  "#ff6100",
 		},
 		{
 			desc: "converts a green HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(82, 100, 100)).(colors.HSV),
+			in:   colors.HSV{82, 100, 100},
 			out:  "#a1ff00",
 		},
 		{
 			desc: "converts a teal HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(170, 100, 100)).(colors.HSV),
+			in:   colors.HSV{170, 100, 100},
 			out:  "#00ffd4",
 		},
 		{
 			desc: "converts a blue HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(226, 100, 100)).(colors.HSV),
+			in:   colors.HSV{226, 100, 100},
 			out:  "#003bff",
 		},
 		{
 			desc: "converts a purple HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(280, 100, 100)).(colors.HSV),
+			in:   colors.HSV{280, 100, 100},
 			out:  "#aa00ff",
 		},
 		{
 			desc: "converts another red HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(344, 100, 100)).(colors.HSV),
+			in:   colors.HSV{344, 100, 100},
 			out:  "#ff0043",
 		},
 	}
@@ -170,7 +169,7 @@ func TestToHexCode(t *testing.T) {
 	}
 }
 
-func TestToHSL(t *testing.T) {
+func TestHSVToHSL(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HSV
@@ -178,17 +177,17 @@ func TestToHSL(t *testing.T) {
 	}{
 		{
 			desc: "converts a bright HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(344, 100, 100)).(colors.HSV),
+			in:   colors.HSV{344, 100, 100},
 			out:  "hsl(344, 100%, 50%)",
 		},
 		{
 			desc: "converts a dark HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(198, 60, 1)).(colors.HSV),
+			in:   colors.HSV{198, 60, 1},
 			out:  "hsl(198, 43%, 1%)",
 		},
 		{
 			desc: "converts a black HSV color to RGB",
-			in:   utils.Must(colors.NewHSV(198, 60, 0.5)).(colors.HSV),
+			in:   colors.HSV{198, 60, 0.5},
 			out:  "hsl(198, 0%, 0%)",
 		},
 	}

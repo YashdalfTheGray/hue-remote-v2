@@ -110,7 +110,7 @@ func TestHexToHSL(t *testing.T) {
 	}
 }
 
-func TestToHSV(t *testing.T) {
+func TestHexToHSV(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HexCode
@@ -146,7 +146,7 @@ func TestToHSV(t *testing.T) {
 	}
 }
 
-func TestToHueHSB(t *testing.T) {
+func TestHexToHueHSB(t *testing.T) {
 	testCases := []struct {
 		desc string
 		in   colors.HexCode
