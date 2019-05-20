@@ -200,3 +200,25 @@ func TestHSVToHSL(t *testing.T) {
 		})
 	}
 }
+
+func TestHSVToHueHSB(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSV
+		out  string
+	}{
+		{
+			desc: "converts an HSV color into a hue acceptable one",
+			in:   colors.HSV{344, 100, 100},
+			out:  "hue(62622, 254, 254)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			result := tC.in.ToHueHSB()
+			if result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}
