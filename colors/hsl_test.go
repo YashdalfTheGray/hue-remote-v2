@@ -138,3 +138,57 @@ func TestHSLToHexCode(t *testing.T) {
 		})
 	}
 }
+
+func TestHSLToHSV(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSL
+		out  string
+	}{
+		{
+			desc: "converts an HSL color into HSV",
+			in:   colors.HSL{197, 84, 63},
+			out:  "hsv(197, 66%, 94%)",
+		},
+		{
+			desc: "converts a dull HSL color into HSV",
+			in:   colors.HSL{197, 84, 30},
+			out:  "hsv(197, 91%, 55%)",
+		},
+		{
+			desc: "converts a dull HSL color into HSV",
+			in:   colors.HSL{197, 84, 0},
+			out:  "hsv(197, 91%, 0%)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			result := tC.in.ToHSV()
+			if result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}
+
+func TestHSLToHueHSB(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HSL
+		out  string
+	}{
+		{
+			desc: "converts an HSL color into Hue HSB",
+			in:   colors.HSL{197, 84, 63},
+			out:  "hue(35862, 167, 239)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			result := tC.in.ToHueHSB()
+			if result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}
