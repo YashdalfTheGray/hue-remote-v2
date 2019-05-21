@@ -28,7 +28,7 @@ func (c HueHSB) String() string {
 
 // ToHSV returns the HSV representation of this HueHSB color
 func (c HueHSB) ToHSV() HSV {
-	return HSV{float64((c.H / 65535) * 360), float64((c.S / 254) * 100), float64((c.B / 253) * 100)}
+	return HSV{(float64(c.H) / 65535.0) * 360.0, (float64(c.S) / 254.0) * 100.0, (float64(c.B) / 253.0) * 100.0}
 }
 
 // ToHSL returns the HSL representation of this HueHSB color

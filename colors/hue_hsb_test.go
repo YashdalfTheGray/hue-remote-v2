@@ -43,3 +43,50 @@ func TestNewHueHSB(t *testing.T) {
 		})
 	}
 }
+
+func TestHueHSBString(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HueHSB
+		out  string
+	}{
+		{
+			desc: "converts a HueHSB color into a string for display",
+			in:   colors.HueHSB{54789, 162, 200},
+			out:  "hue(54789, 162, 200)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if result := tC.in.String(); result != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result)
+			}
+		})
+	}
+}
+
+func TestHueHSBToHSV(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.HueHSB
+		out  string
+	}{
+		{
+			desc: "converts a HueHSB color into its HSV equivalent",
+			in:   colors.HueHSB{54789, 162, 200},
+			out:  "hsv(301, 64%, 79%)",
+		},
+		{
+			desc: "converts another HueHSB color into its HSV equivalent",
+			in:   colors.HueHSB{34565, 200, 100},
+			out:  "hsv(190, 79%, 40%)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if result := tC.in.ToHSV(); result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}
