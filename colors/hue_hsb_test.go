@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/yashdalfthegray/hue-remote-v2/colors"
-	"github.com/yashdalfthegray/hue-remote-v2/utils"
 )
 
 func TestNewHueHSB(t *testing.T) {
@@ -19,16 +18,16 @@ func TestNewHueHSB(t *testing.T) {
 			h:    56234,
 			s:    190,
 			b:    250,
-			out:  utils.Must(colors.NewHueHSB(56234, 190, 250)).(colors.HueHSB),
+			out:  colors.HueHSB{56234, 190, 250},
 			err:  false,
 		},
 		{
-			desc: "throws an error after",
+			desc: "throws an error when the channels are out of range",
 			h:    56234,
-			s:    190,
+			s:    400,
 			b:    250,
-			out:  utils.Must(colors.NewHueHSB(56234, 190, 250)).(colors.HueHSB),
-			err:  false,
+			out:  colors.HueHSB{0, 0, 0},
+			err:  true,
 		},
 	}
 	for _, tC := range testCases {
