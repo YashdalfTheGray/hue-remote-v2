@@ -38,7 +38,7 @@ func TestNewHSL(t *testing.T) {
 			} else if tC.err && err == nil {
 				t.Errorf("Expected error but got nil")
 			} else if color.String() != tC.out {
-				t.Errorf("Expecting %s but got %s", tC.out, color.String())
+				t.Errorf("Expected %s but got %s", tC.out, color.String())
 			}
 		})
 	}

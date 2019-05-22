@@ -56,7 +56,7 @@ func TestValidateColorString(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			if result := utils.ValidateColorString(tC.in); result != tC.out {
-				t.Errorf("expected %t but got %t", tC.out, result)
+				t.Errorf("Expected %t but got %t", tC.out, result)
 			}
 		})
 	}

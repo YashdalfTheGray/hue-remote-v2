@@ -38,7 +38,7 @@ func TestCheckEnv(t *testing.T) {
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
 			if result := utils.CheckEnv(tC.in); result != tC.out {
-				t.Errorf("expected %s but got %s", tC.out.Error(), result.Error())
+				t.Errorf("Expected %s but got %s", tC.out.Error(), result.Error())
 			}
 		})
 	}

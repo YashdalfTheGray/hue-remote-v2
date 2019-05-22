@@ -60,10 +60,10 @@ func TestHexToRGB(t *testing.T) {
 				t.Errorf(err.Error())
 			}
 			if tC.err && err == nil {
-				t.Errorf("expecting error to not be nil")
+				t.Errorf("Expected error to not be nil")
 			}
 			if result.String() != tC.out {
-				t.Errorf("expected %s but got %s", tC.out, result.String())
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
@@ -101,10 +101,10 @@ func TestHexToHSL(t *testing.T) {
 				t.Errorf(err.Error())
 			}
 			if tC.err && err == nil {
-				t.Errorf("expecting error to not be nil")
+				t.Errorf("Expected error to not be nil")
 			}
 			if result.String() != tC.out {
-				t.Errorf("expected %s but got %s", tC.out, result.String())
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
@@ -137,10 +137,10 @@ func TestHexToHSV(t *testing.T) {
 				t.Errorf(err.Error())
 			}
 			if tC.err && err == nil {
-				t.Errorf("expecting error to not be nil")
+				t.Errorf("Expected error to not be nil")
 			}
 			if result.String() != tC.out {
-				t.Errorf("expected %s but got %s", tC.out, result.String())
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
@@ -173,10 +173,10 @@ func TestHexToHueHSB(t *testing.T) {
 				t.Errorf(err.Error())
 			}
 			if tC.err && err == nil {
-				t.Errorf("expecting error to not be nil")
+				t.Errorf("Expected error to not be nil")
 			}
 			if result.String() != tC.out {
-				t.Errorf("expected %s but got %s", tC.out, result.String())
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
 			}
 		})
 	}
