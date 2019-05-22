@@ -84,23 +84,23 @@ func TestRGBToHSL(t *testing.T) {
 	}{
 		{
 			desc: "converts a non-gray RGB color to HSL",
-			in:   colors.NewRGB(13, 166, 242),
-			out:  colors.HSL{200, 90, 50}.String(),
+			in:   colors.RGB{13, 166, 242},
+			out:  "hsl(200, 90%, 50%)",
 		},
 		{
 			desc: "converts a gray RGB color to HSL",
-			in:   colors.NewRGB(128, 128, 128),
-			out:  colors.HSL{0, 0, 50}.String(),
+			in:   colors.RGB{128, 128, 128},
+			out:  "hsl(0, 0%, 50%)",
 		},
 		{
 			desc: "converts a dark RGB color to HSL",
-			in:   colors.NewRGB(40, 34, 90),
-			out:  colors.HSL{246, 45, 24}.String(),
+			in:   colors.RGB{40, 34, 90},
+			out:  "hsl(246, 45%, 24%)",
 		},
 		{
 			desc: "converts a mostly green RGB color to HSL",
-			in:   colors.NewRGB(40, 150, 90),
-			out:  colors.HSL{147, 58, 37}.String(),
+			in:   colors.RGB{40, 150, 90},
+			out:  "hsl(147, 58%, 37%)",
 		},
 	}
 	for _, tC := range testCases {

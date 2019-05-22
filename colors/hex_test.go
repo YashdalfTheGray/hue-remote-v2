@@ -37,19 +37,19 @@ func TestHexToRGB(t *testing.T) {
 		{
 			desc: "converts a hex string to RGB",
 			in:   colors.HexCode("#deadaf"),
-			out:  colors.RGB{222, 173, 175}.String(),
+			out:  "rgb(222, 173, 175)",
 			err:  false,
 		},
 		{
 			desc: "errors on string without the # sign",
 			in:   colors.HexCode("deadaf"),
-			out:  colors.RGB{0, 0, 0}.String(),
+			out:  "rgb(0, 0, 0)",
 			err:  true,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.HexCode("#jklmno"),
-			out:  colors.RGB{0, 0, 0}.String(),
+			out:  "rgb(0, 0, 0)",
 			err:  true,
 		},
 	}
@@ -78,19 +78,19 @@ func TestHexToHSL(t *testing.T) {
 		{
 			desc: "converts a hex string to HSL",
 			in:   colors.HexCode("#deadaf"),
-			out:  colors.HSL{357.55, 42.61, 77.45}.String(),
+			out:  "hsl(358, 43%, 77%)",
 			err:  false,
 		},
 		{
 			desc: "errors on string without the # sign",
 			in:   colors.HexCode("deadaf"),
-			out:  colors.HSL{0, 0, 0}.String(),
+			out:  "hsl(0, 0%, 0%)",
 			err:  true,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.HexCode("#jklmno"),
-			out:  colors.HSL{0, 0, 0}.String(),
+			out:  "hsl(0, 0%, 0%)",
 			err:  true,
 		},
 	}
@@ -120,13 +120,13 @@ func TestHexToHSV(t *testing.T) {
 		{
 			desc: "converts a HexCode color into HSV",
 			in:   colors.HexCode("#deadaf"),
-			out:  colors.HSV{357.55, 22.07, 87.06}.String(),
+			out:  "hsv(358, 22%, 87%)",
 			err:  false,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.NewHexCode("#jklmno"),
-			out:  colors.HSV{0, 0, 0}.String(),
+			out:  "hsv(0, 0%, 0%)",
 			err:  true,
 		},
 	}
@@ -156,13 +156,13 @@ func TestHexToHueHSB(t *testing.T) {
 		{
 			desc: "converts a HexCode color into HSV",
 			in:   colors.HexCode("#deadaf"),
-			out:  colors.HueHSB{65089, 56, 221}.String(),
+			out:  "hue(65089, 56, 221)",
 			err:  false,
 		},
 		{
 			desc: "errors on invalid characters",
 			in:   colors.HexCode("#jklmno"),
-			out:  colors.HueHSB{0, 0, 0}.String(),
+			out:  "hue(0, 0, 0)",
 			err:  true,
 		},
 	}
