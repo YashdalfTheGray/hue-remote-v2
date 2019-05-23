@@ -85,25 +85,25 @@ func (c RGB) ToHSV() HSV {
 	v = math.Max(fracR, math.Max(fracG, fracB))
 	diff := v - math.Min(fracR, math.Min(fracG, fracB))
 
-	diffChannel := func(c float64) float64 {
-		return (v-c)/6/diff + 1/2
-	}
+	// diffChannel := func(c float64) float64 {
+	// 	return (v-c)/6/diff + 1/2
+	// }
 
 	if diff == 0 {
 		h = 0
 		s = 0
 	} else {
 		s = diff / v
-		rdif = diffChannel(fracR)
-		gdif = diffChannel(fracG)
-		bdif = diffChannel(fracB)
+		rdif = fracR
+		gdif = fracG
+		bdif = fracB
 
 		if fracR == v {
-			h = bdif - gdif
+			h = (gdif - bdif) / diff
 		} else if fracG == v {
-			h = (1 / 3) + rdif - bdif
+			h = (1 / 3) + ((bdif - rdif) / diff)
 		} else if fracB == v {
-			h = (2 / 3) + gdif - rdif
+			h = (2 / 3) + ((rdif - gdif) / diff)
 		}
 
 		switch {
