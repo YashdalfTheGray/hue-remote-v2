@@ -111,3 +111,39 @@ func TestRGBToHSL(t *testing.T) {
 		})
 	}
 }
+
+func TestRGBToHSV(t *testing.T) {
+	testCases := []struct {
+		desc string
+		in   colors.RGB
+		out  string
+	}{
+		{
+			desc: "converts a non-gray RGB color to HSL",
+			in:   colors.RGB{13, 166, 242},
+			out:  "hsv(200, 95%, 95%)",
+		},
+		{
+			desc: "converts a gray RGB color to HSL",
+			in:   colors.RGB{128, 128, 128},
+			out:  "hsv(0, 0%, 50%)",
+		},
+		{
+			desc: "converts a dark RGB color to HSL",
+			in:   colors.RGB{40, 34, 90},
+			out:  "hsv(246, 62%, 35%)",
+		},
+		{
+			desc: "converts a mostly green RGB color to HSL",
+			in:   colors.RGB{40, 150, 90},
+			out:  "hsv(147, 73%, 59%)",
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if result := tC.in.ToHSV(); result.String() != tC.out {
+				t.Errorf("Expected %s but got %s", tC.out, result.String())
+			}
+		})
+	}
+}
