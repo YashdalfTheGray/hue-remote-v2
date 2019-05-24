@@ -76,42 +76,44 @@ func (c RGB) ToHSL() HSL {
 
 // ToHSV returns the HSV representation of the RGB color
 func (c RGB) ToHSV() HSV {
-	var rdif, gdif, bdif, h, s, v float64
-
 	fracR := float64(c.R) / 255.0
 	fracG := float64(c.G) / 255.0
 	fracB := float64(c.B) / 255.0
 
-	v = math.Max(fracR, math.Max(fracG, fracB))
-	diff := v - math.Min(fracR, math.Min(fracG, fracB))
+	max := math.Max(math.Max(fracR, fracG), fracB)
+	min := math.Min(math.Min(fracR, fracG), fracB)
+	h, s, v := max, max, max
+	diff := max - min
 
-	// diffChannel := func(c float64) float64 {
-	// 	return (v-c)/6/diff + 1/2
-	// }
+	errorCorrect := func(g, b float64) float64 {
+		if g < b {
+			return 6
+		}
+		return 0
+	}
 
-	if diff == 0 {
-		h = 0
+	if max == 0 {
 		s = 0
 	} else {
-		s = diff / v
-		rdif = fracR
-		gdif = fracG
-		bdif = fracB
+		s = diff / max
+	}
 
-		if fracR == v {
-			h = (gdif - bdif) / diff
-		} else if fracG == v {
-			h = (1 / 3) + ((bdif - rdif) / diff)
-		} else if fracB == v {
-			h = (2 / 3) + ((rdif - gdif) / diff)
-		}
-
+	if max == min {
+		h = 0
+	} else {
 		switch {
-		case h < 0:
-			h++
-		case h > 1:
-			h--
+		case fracR == max:
+			h = ((fracG - fracB) / diff) + errorCorrect(fracG, fracB)
+			break
+		case fracG == max:
+			h = ((fracB - fracR) / diff) + 2
+			break
+		case fracB == max:
+			h = ((fracR - fracG) / diff) + 4
+			break
 		}
+
+		h /= 6
 	}
 
 	return HSV{h * 360.0, s * 100.0, v * 100.0}
