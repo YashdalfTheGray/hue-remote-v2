@@ -3,6 +3,8 @@ package colors
 import (
 	"errors"
 	"fmt"
+
+	"github.com/YashdalfTheGray/colorcode"
 )
 
 // HueHSB represents a color in values that hue can understand
@@ -27,21 +29,21 @@ func (c HueHSB) String() string {
 }
 
 // ToHSV returns the HSV representation of this HueHSB color
-func (c HueHSB) ToHSV() HSV {
-	return HSV{(float64(c.H) / 65535.0) * 360.0, (float64(c.S) / 254.0) * 100.0, (float64(c.B) / 253.0) * 100.0}
+func (c HueHSB) ToHSV() colorcode.HSV {
+	return colorcode.HSV{H: (float64(c.H) / 65535.0) * 360.0, S: (float64(c.S) / 254.0) * 100.0, V: (float64(c.B) / 253.0) * 100.0}
 }
 
 // ToHSL returns the HSL representation of this HueHSB color
-func (c HueHSB) ToHSL() HSL {
+func (c HueHSB) ToHSL() colorcode.HSL {
 	return c.ToHSV().ToHSL()
 }
 
 // ToRGB returns the RGB representation of this HueHSB color
-func (c HueHSB) ToRGB() RGB {
+func (c HueHSB) ToRGB() colorcode.RGB {
 	return c.ToHSV().ToRGB()
 }
 
 // ToHexCode returns the Hex code representation of this HueHSB color
-func (c HueHSB) ToHexCode() HexCode {
+func (c HueHSB) ToHexCode() colorcode.HexCode {
 	return c.ToHSV().ToRGB().ToHexCode()
 }
