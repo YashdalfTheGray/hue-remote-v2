@@ -45,3 +45,43 @@ func TestTempToMired(t *testing.T) {
 		})
 	}
 }
+
+func TestMiredToTemp(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		in, out uint16
+	}{
+		{
+			desc: "converts a mired value to color temperature",
+			in:   333,
+			out:  3000,
+		},
+		{
+			desc: "properly handles minimum mired value",
+			in:   500,
+			out:  2000,
+		},
+		{
+			desc: "properly handles maximum mired value",
+			in:   154,
+			out:  6500,
+		},
+		{
+			desc: "properly handles higher than maximum mired value",
+			in:   550,
+			out:  2000,
+		},
+		{
+			desc: "properly handles lower than minimum mired value",
+			in:   145,
+			out:  6500,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			if result := utils.MiredToTemp(tC.in); result != tC.out {
+				t.Errorf("Expected %d but got %d", tC.out, result)
+			}
+		})
+	}
+}
