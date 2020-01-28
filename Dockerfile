@@ -14,6 +14,9 @@ RUN go test -covermode=atomic -coverpkg=all ./...
 RUN CGO_ENABLED=0 GOOS=linux go build
 
 FROM scratch
+
+ARG PORT=8080
+
 COPY --from=builder /app/hue-remote-v2 /app/
-EXPOSE 8080
+EXPOSE $PORT
 ENTRYPOINT ["/app/hue-remote-v2"]
