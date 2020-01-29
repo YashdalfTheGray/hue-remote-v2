@@ -29,3 +29,6 @@ clean:
 	rm .bin-stamp
 	rm -rf artifacts
 	rm .artifacts-stamp
+
+convey:
+	$GOPATH/bin/goconvey
