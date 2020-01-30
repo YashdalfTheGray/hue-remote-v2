@@ -3,6 +3,7 @@ bin
 .bin-stamp
 artifacts
 .artifacts-stamp
+hue-remote-v2
 
 # env files
 *.env
