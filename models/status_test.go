@@ -12,7 +12,7 @@ func TestNewStatusResponse(t *testing.T) {
 		out  models.StatusResponse
 	}{
 		{
-			desc: "creates a new error response with message",
+			desc: "creates a new status response",
 			out:  models.NewStatusResponse(),
 		},
 	}
