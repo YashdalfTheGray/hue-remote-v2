@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"os"
+	"strings"
 
 	radix "github.com/mediocregopher/radix/v3"
 
@@ -15,7 +16,8 @@ import (
 func Status(w http.ResponseWriter, req *http.Request) {
 	currentStatus := models.NewStatusResponse()
 	redisURL, _ := os.LookupEnv("REDIS_URL")
-	client, poolErr := radix.NewPool("redis", redisURL, 10)
+	urlPieces := strings.Split(redisURL, "://")
+	client, poolErr := radix.NewPool("tcp", urlPieces[1], 10)
 	if poolErr != nil {
 		currentStatus.RedisServerFound = false
 	} else {
