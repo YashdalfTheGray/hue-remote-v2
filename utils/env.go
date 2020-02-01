@@ -29,3 +29,17 @@ func CheckEnv(lookupFunc func(key string) (string, bool)) (err error) {
 
 	return nil
 }
+
+// GetPort either reads the port from the environment variable
+// called PORT or returns a default, which is 8080
+func GetPort(lookupFunc func(key string) (string, bool)) string {
+	if lookupFunc == nil {
+		lookupFunc = os.LookupEnv
+	}
+
+	if port, ok := lookupFunc("PORT"); ok {
+		return port
+	}
+
+	return "8080"
+}
