@@ -22,6 +22,8 @@ func main() {
 		os.Exit(1)
 	}
 
+	port := utils.GetPort(nil)
+
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", handlers.Status).Methods("GET")
@@ -29,6 +31,6 @@ func main() {
 	loggedRouter := gHandlers.LoggingHandler(os.Stdout, r)
 
 	http.Handle("/", loggedRouter)
-	fmt.Println("Starting server at 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Starting server at " + port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
