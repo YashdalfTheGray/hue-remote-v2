@@ -25,10 +25,10 @@ func CheckEnv(lookupFunc func(key string) (string, bool)) (err error) {
 	}
 
 	envVars := [4]string{
-		"HUE_BRIDGE_ADDRESS",
-		"HUE_BRIDGE_USERNAME",
-		"HUE_REMOTE_TOKEN",
-		"REDIS_URL",
+		EnvHueBridgeAddress,
+		EnvHueBridgeUsername,
+		EnvHueRemoteToken,
+		EnvRedisURL,
 	}
 
 	for _, v := range envVars {
@@ -47,7 +47,7 @@ func GetPort(lookupFunc func(key string) (string, bool)) string {
 		lookupFunc = os.LookupEnv
 	}
 
-	if port, ok := lookupFunc("PORT"); ok {
+	if port, ok := lookupFunc(EnvPort); ok {
 		return port
 	}
 
