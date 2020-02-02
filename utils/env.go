@@ -6,6 +6,16 @@ import (
 	"github.com/yashdalfthegray/hue-remote-v2/models"
 )
 
+// Exported constants for the environment variables
+// that this application cares about
+const (
+	EnvHueBridgeAddress  = "HUE_BRIDGE_ADDRESS"
+	EnvHueBridgeUsername = "HUE_BRIDGE_USERNAME"
+	EnvHueRemoteToken    = "HUE_REMOTE_TOKEN"
+	EnvRedisURL          = "REDIS_URL"
+	EnvPort              = "PORT"
+)
+
 // CheckEnv checks that the right keys are present in the
 // environment. Optionally takes a lookup function and falls
 // back to os.LookupEnv if one is not provided
