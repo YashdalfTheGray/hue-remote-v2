@@ -21,11 +21,11 @@ func Status(w http.ResponseWriter, req *http.Request) {
 	currentStatus.BridgeUserFound = isHueBridgeUserFound()
 	currentStatus.APITokenFound = isAPITokenFound()
 
-	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	w.WriteHeader(http.StatusOK)
-
-	if err := json.NewEncoder(w).Encode(currentStatus); err != nil {
-		panic(err)
+	if err := json.NewEncoder(w).Encode(currentStatus); err == nil {
+		w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+		w.WriteHeader(http.StatusOK)
+	} else {
+		w.WriteHeader(http.StatusInternalServerError)
 	}
 }
 
