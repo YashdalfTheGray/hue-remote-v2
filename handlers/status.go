@@ -17,6 +17,9 @@ func Status(w http.ResponseWriter, req *http.Request) {
 	currentStatus := models.NewStatusResponse()
 
 	currentStatus.RedisServerFound = isRedisServerAvailable()
+	currentStatus.BridgeFound = isHueBridgeFound()
+	currentStatus.BridgeUserFound = isHueBridgeUserFound()
+	currentStatus.APITokenFound = isAPITokenFound()
 
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
@@ -40,4 +43,19 @@ func isRedisServerAvailable() bool {
 	}
 
 	return (response == "PONG")
+}
+
+func isHueBridgeFound() bool {
+	bridgeAddress, _ := os.LookupEnv(utils.EnvHueBridgeAddress)
+	return bridgeAddress != ""
+}
+
+func isHueBridgeUserFound() bool {
+	bridgeUser, _ := os.LookupEnv(utils.EnvHueBridgeUsername)
+	return bridgeUser != ""
+}
+
+func isAPITokenFound() bool {
+	apiToken, _ := os.LookupEnv(utils.EnvHueRemoteToken)
+	return apiToken != ""
 }
